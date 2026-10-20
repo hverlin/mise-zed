@@ -1,9 +1,10 @@
 # mise for Zed (prototype)
 
 - **Language server:** [`mise lsp`](https://github.com/jdx/mise/pull/14744) for the mise config
-  files: diagnostics (TOML syntax, unknown keys, wrong types, deprecated keys), completion and
-  hover of the keys, and formatting as `mise fmt` does. It needs a mise with `mise lsp`, which is
-  not released yet; until then the server does not start and says why.
+  files: diagnostics (TOML syntax, unknown keys, wrong types, deprecated keys), a quick fix that
+  replaces an unknown key with the suggested one, completion of keys (inline tables included)
+  and of fixed values, hover of the keys, and formatting as `mise fmt` does. It needs a mise with
+  `mise lsp`, which is not released yet; until then the server does not start and says why.
 - **A `mise` language** for `mise.toml`, `.mise.toml`, `mise.local.toml`, common
   `mise.<env>.toml`, `.config/mise.toml`, `.config/mise/config.toml` and `.mise/config.toml`. It
   highlights them as TOML and adds:
