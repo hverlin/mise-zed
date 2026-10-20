@@ -13,19 +13,19 @@ snippets = ["snippets/mise.json", "snippets/shell script.json"]
 # `mise_toml` is tree-sitter-toml with the content of strings as a node, for the scripts of tasks.
 [grammars.mise_toml]
 repository = "https://github.com/hverlin/mise-zed"
-rev = "GRAMMARS_REV"
+rev = "6b06dd4d665ca1211eff81dc42df11f9906653c6"
 path = "tree-sitter-mise-toml"
 
 [grammars.tool_versions]
 repository = "https://github.com/hverlin/mise-zed"
-rev = "GRAMMARS_REV"
+rev = "6b06dd4d665ca1211eff81dc42df11f9906653c6"
 path = "tree-sitter-tool-versions"
 
 # tree-sitter-kdl 2.0.0, renamed: usage specs are KDL 2, the `kdl` grammar of the KDL extension
 # reads KDL 1
 [grammars.usage_kdl]
 repository = "https://github.com/hverlin/mise-zed"
-rev = "GRAMMARS_REV"
+rev = "6b06dd4d665ca1211eff81dc42df11f9906653c6"
 path = "tree-sitter-usage-kdl"
 
 # On TOML too, for the config files the `mise` language does not match (`mise/config.toml`,
