@@ -1,0 +1,19 @@
+id = "mise"
+name = "mise"
+version = "0.0.1"
+schema_version = 1
+authors = ["hverlin"]
+description = "Diagnostics, completion, hover and formatting for mise config files, from `mise lsp`"
+
+[language_servers.mise]
+name = "mise"
+languages = ["TOML"]
+
+[language_servers.mise.language_ids]
+"TOML" = "toml"
+
+# `mise lsp --help`, to know the mise binary has the command before starting it
+[[capabilities]]
+kind = "process:exec"
+command = "*"
+args = ["lsp", "--help"]
