@@ -3,17 +3,46 @@ name = "mise"
 version = "0.0.1"
 schema_version = 1
 authors = ["hverlin"]
-description = "Diagnostics, completion, hover and formatting for mise config files, from `mise lsp`"
+description = "mise config files (diagnostics, completion, hover, formatting from `mise lsp`), task and tool runners, snippets, and the mise and pitchfork MCP servers"
+
+# the "mise" language parses with the grammar of the TOML extension
+languages = ["languages/mise"]
+snippets = ["snippets/mise.json", "snippets/shell script.json"]
+
+[grammars.toml]
+repository = "https://github.com/tree-sitter/tree-sitter-toml"
+rev = "342d9be207c2dba869b9967124c679b5e6fd0ebe"
 
 [language_servers.mise]
 name = "mise"
-languages = ["TOML"]
+languages = ["mise", "TOML"]
 
 [language_servers.mise.language_ids]
+"mise" = "toml"
 "TOML" = "toml"
+
+[context_servers.mise]
+
+[context_servers.pitchfork]
 
 # `mise lsp --help`, to know the mise binary has the command before starting it
 [[capabilities]]
 kind = "process:exec"
 command = "*"
 args = ["lsp", "--help"]
+
+# where mise and pitchfork are, for the MCP servers, and their versions
+[[capabilities]]
+kind = "process:exec"
+command = "sh"
+args = ["-c", "command -v mise"]
+
+[[capabilities]]
+kind = "process:exec"
+command = "sh"
+args = ["-c", "command -v pitchfork"]
+
+[[capabilities]]
+kind = "process:exec"
+command = "*"
+args = ["--version"]

@@ -1,0 +1,23 @@
+{
+  "mise File Task Configuration": {
+    "prefix": "mise-task",
+    "description": "Insert a file task configuration block",
+    "body": [
+      "#MISE alias=\"${1:taskname}\"",
+      "#MISE sources=[${2:\"src/**/*\"}]",
+      "#MISE outputs=[${3:\"target/output\"}]",
+      "#MISE env={${4:VARIABLE = \"value\"}}",
+      "#MISE depends=[${5:\"dependency\"}]",
+      "$0"
+    ]
+  },
+  "mise File Task Usage Spec": {
+    "prefix": "mise-task-usage",
+    "description": "Define file task arguments with the usage spec",
+    "body": [
+      "#USAGE arg \"<${1:file}>\" help=\"${2:File to use}\"",
+      "#USAGE flag \"-v --verbose\" help=\"Enable verbose output\"",
+      "$0"
+    ]
+  }
+}

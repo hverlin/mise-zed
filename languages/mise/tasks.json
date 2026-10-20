@@ -1,0 +1,30 @@
+[
+  {
+    "label": "mise run $ZED_CUSTOM_MISE_TASK",
+    "command": "sh",
+    "args": ["-c", "exec mise run \"$(printf %s \"$1\" | tr -d \"\\\"'\")\"", "mise", "$ZED_CUSTOM_MISE_TASK"],
+    "cwd": "$ZED_DIRNAME",
+    "tags": ["mise-task"]
+  },
+  {
+    "label": "mise install $ZED_CUSTOM_MISE_TOOL",
+    "command": "sh",
+    "args": ["-c", "exec mise install \"$(printf %s \"$1\" | tr -d \"\\\"'\")\"", "mise", "$ZED_CUSTOM_MISE_TOOL"],
+    "cwd": "$ZED_DIRNAME",
+    "tags": ["mise-tool"]
+  },
+  {
+    "label": "mise upgrade $ZED_CUSTOM_MISE_TOOL",
+    "command": "sh",
+    "args": ["-c", "exec mise upgrade \"$(printf %s \"$1\" | tr -d \"\\\"'\")\"", "mise", "$ZED_CUSTOM_MISE_TOOL"],
+    "cwd": "$ZED_DIRNAME",
+    "tags": ["mise-tool"]
+  },
+  { "label": "mise run", "command": "mise", "args": ["run"], "cwd": "$ZED_DIRNAME" },
+  { "label": "mise install", "command": "mise", "args": ["install"], "cwd": "$ZED_DIRNAME" },
+  { "label": "mise upgrade --interactive", "command": "mise", "args": ["upgrade", "--interactive"], "cwd": "$ZED_DIRNAME" },
+  { "label": "mise outdated", "command": "mise", "args": ["outdated"], "cwd": "$ZED_DIRNAME" },
+  { "label": "mise trust $ZED_FILENAME", "command": "mise", "args": ["trust", "$ZED_FILE"], "cwd": "$ZED_DIRNAME" },
+  { "label": "mise tasks validate", "command": "mise", "args": ["tasks", "validate"], "cwd": "$ZED_DIRNAME" },
+  { "label": "mise doctor", "command": "mise", "args": ["doctor"], "cwd": "$ZED_DIRNAME" }
+]
