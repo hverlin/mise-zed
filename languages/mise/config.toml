@@ -1,8 +1,9 @@
 # The mise config files, as TOML with mise's runnables, tasks and snippets. Zed picks the language
 # whose suffix matches the longest part of the path, so these win over TOML's `toml`. A suffix
-# also matches after a dot: `mise.toml` covers `.mise.toml`, and `config/mise/config.toml` covers
-# `.config/mise/config.toml`. Other config files (`mise/config.toml`, `conf.d/*.toml`, other
-# environments) stay TOML unless `file_types` maps them here.
+# matches the file name or the path, as is or after a dot: `mise.toml` covers `.mise.toml` and
+# `.config/mise.toml`, `config/mise/config.toml` covers `.config/mise/config.toml`, and
+# `mise/config.toml` covers only `.mise/config.toml`. Other config files (`mise/config.toml`,
+# `conf.d/*.toml`, other environments) stay TOML unless `file_types` maps them here.
 name = "mise"
 grammar = "toml"
 path_suffixes = [
@@ -16,8 +17,6 @@ path_suffixes = [
     "mise.staging.toml",
     "mise.prod.toml",
     "mise.production.toml",
-    "config/mise.toml",
-    "config/mise.local.toml",
     "config/mise/config.toml",
     "config/mise/config.local.toml",
     "mise/config.toml",

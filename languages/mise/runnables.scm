@@ -1,5 +1,7 @@
 ; A run button on each task, and on each tool. The key is exposed to tasks.json as
-; $ZED_CUSTOM_MISE_TASK or $ZED_CUSTOM_MISE_TOOL, quotes included when the key is quoted.
+; $ZED_CUSTOM_MISE_TASK or $ZED_CUSTOM_MISE_TOOL, quotes included when the key is quoted. Zed
+; hands the command line to the shell as written, so a key with `$`, a backtick, `\` or `!`, which
+; the shell would expand inside its quotes, gets no button.
 
 ; [tasks.build], [tasks."docs:build"], and the same for [tools.node]
 ((table
@@ -10,6 +12,7 @@
     [(bare_key) (quoted_key)] @run @MISE_TASK
     .))
   (#eq? @_section "tasks")
+  (#not-match? @MISE_TASK "[$`\\\\!]")
   (#set! tag mise-task))
 
 ((table
@@ -20,6 +23,7 @@
     [(bare_key) (quoted_key)] @run @MISE_TOOL
     .))
   (#eq? @_section "tools")
+  (#not-match? @MISE_TOOL "[$`\\\\!]")
   (#set! tag mise-tool))
 
 ; build = "..." in [tasks], node = "24" in [tools]
@@ -30,6 +34,7 @@
     .
     [(bare_key) (quoted_key)] @run @MISE_TASK))
   (#eq? @_section "tasks")
+  (#not-match? @MISE_TASK "[$`\\\\!]")
   (#set! tag mise-task))
 
 ((table
@@ -39,6 +44,7 @@
     .
     [(bare_key) (quoted_key)] @run @MISE_TOOL))
   (#eq? @_section "tools")
+  (#not-match? @MISE_TOOL "[$`\\\\!]")
   (#set! tag mise-tool))
 
 ; tasks.build = "..." and tools.node = "24" outside of a table
@@ -52,6 +58,7 @@
       [(bare_key) (quoted_key)] @run @MISE_TASK
       .)))
   (#eq? @_section "tasks")
+  (#not-match? @MISE_TASK "[$`\\\\!]")
   (#set! tag mise-task))
 
 ((document
@@ -64,4 +71,5 @@
       [(bare_key) (quoted_key)] @run @MISE_TOOL
       .)))
   (#eq? @_section "tools")
+  (#not-match? @MISE_TOOL "[$`\\\\!]")
   (#set! tag mise-tool))

@@ -4,6 +4,7 @@ version = "0.0.1"
 schema_version = 1
 authors = ["hverlin"]
 description = "mise config files (diagnostics, completion, hover, formatting from `mise lsp`), task and tool runners, snippets, and the mise and pitchfork MCP servers"
+repository = "https://github.com/hverlin/mise-zed"
 
 # the "mise" language parses with the grammar of the TOML extension
 languages = ["languages/mise"]
@@ -13,9 +14,13 @@ snippets = ["snippets/mise.json", "snippets/shell script.json"]
 repository = "https://github.com/tree-sitter/tree-sitter-toml"
 rev = "342d9be207c2dba869b9967124c679b5e6fd0ebe"
 
+# On TOML too, for the config files the `mise` language does not match (`mise/config.toml`,
+# `conf.d/*.toml`), but only for users who enable it: it would start in every Rust or Python
+# project
 [language_servers.mise]
 name = "mise"
 languages = ["mise", "TOML"]
+opt_in_languages = ["TOML"]
 
 [language_servers.mise.language_ids]
 "mise" = "toml"
@@ -25,24 +30,19 @@ languages = ["mise", "TOML"]
 
 [context_servers.pitchfork]
 
-# `mise lsp --help`, to know the mise binary has the command before starting it
+# `mise help lsp`, to know the mise binary has `mise lsp` before starting it
 [[capabilities]]
 kind = "process:exec"
 command = "*"
-args = ["lsp", "--help"]
+args = ["help", "lsp"]
 
-# where mise and pitchfork are, for the MCP servers, and their versions
+# where mise and pitchfork are, and their versions, for the MCP servers
 [[capabilities]]
 kind = "process:exec"
 command = "sh"
-args = ["-c", "command -v mise"]
+args = ["-c", "command -v mise && mise --version"]
 
 [[capabilities]]
 kind = "process:exec"
 command = "sh"
-args = ["-c", "command -v pitchfork"]
-
-[[capabilities]]
-kind = "process:exec"
-command = "*"
-args = ["--version"]
+args = ["-c", "command -v pitchfork && pitchfork --version"]

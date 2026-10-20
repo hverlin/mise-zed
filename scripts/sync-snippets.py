@@ -2,9 +2,9 @@
 
 Usage: python3 scripts/sync-snippets.py <mise-vscode checkout>
 
-Zed reads the VS Code snippet format, but its parser takes every `$` for the start of a tab
-stop: a literal `$`, as in bun's `await $` template tag, is escaped with a backslash, which VS
-Code reads the same way.
+Zed reads the VS Code snippet format, but its parser takes every `$` for the start of a tab stop
+and has no variables (`$TM_FILENAME`): any other `$`, as in bun's `await $` template tag, is
+escaped with a backslash, which VS Code reads the same way.
 """
 
 import json
@@ -14,7 +14,7 @@ from pathlib import Path
 
 source = Path(sys.argv[1]) / "src" / "snippets"
 target = Path(__file__).resolve().parent.parent / "snippets"
-LITERAL_DOLLAR = re.compile(r"(?<!\\)\$(?![0-9{]|[A-Z_]+\b)")
+LITERAL_DOLLAR = re.compile(r"(?<!\\)\$(?![0-9]|\{[0-9])")
 
 
 def escape(body):

@@ -1,23 +1,19 @@
 //! mise for Zed:
-//! - `mise lsp` for the TOML files of a project. The server answers only for the files mise
-//!   loads as configs (`mise.toml`, `mise/config.toml`, `conf.d/*.toml`, ...) and leaves the other
-//!   TOML files alone, so it can be attached to the whole language.
+//! - `mise lsp` for the `mise` language, and for TOML when a user opts in. The server answers
+//!   only for the files mise loads as configs (`mise.toml`, `mise/config.toml`, `conf.d/*.toml`,
+//!   ...) and leaves the other TOML files alone.
 //! - the `mise mcp` and `pitchfork mcp` context servers, in the project directory.
 //!
-//! A `lsp.mise.binary.path` setting replaces the language server command entirely: Zed runs that
-//! path with `lsp.mise.binary.arguments` (none by default) and does not call the extension. A
-//! `context_servers.<id>.command.path` setting replaces the context server command the same way.
+//! A setting that gives a command (`lsp.mise.binary.path`, `context_servers.<id>.command`)
+//! replaces the command entirely: Zed runs it and does not call the extension.
 
-use std::collections::HashMap;
+use std::collections::HashSet;
 
-use zed_extension_api::{
-    self as zed, ContextServerId, LanguageServerId, Project, Result,
-    settings::ContextServerSettings,
-};
+use zed_extension_api::{self as zed, ContextServerId, LanguageServerId, Os, Project, Result};
 
 /// `mise mcp` no longer needs `experimental = true` since 2026.6.6.
 const MISE_MCP_SINCE: Version = [2026, 6, 6];
-/// The version mise works with.
+/// The oldest pitchfork mise works with.
 const PITCHFORK_SINCE: Version = [2, 25, 0];
 /// `pitchfork mcp --local` keeps the server to the project since 2.32.0.
 const PITCHFORK_LOCAL_MCP_SINCE: Version = [2, 32, 0];
@@ -25,76 +21,86 @@ const PITCHFORK_LOCAL_MCP_SINCE: Version = [2, 32, 0];
 type Version = [u64; 3];
 
 struct MiseExtension {
-    /// Whether each mise binary has `mise lsp`.
-    has_lsp: HashMap<String, bool>,
+    /// The mise binaries found to have `mise lsp`. A binary without it is asked again on the
+    /// next start, as mise upgrades itself in place.
+    has_lsp: HashSet<String>,
 }
 
 impl MiseExtension {
-    /// A mise without `mise lsp` takes `lsp` for a task name and runs the project's `lsp` task, so
-    /// the command is checked first. `--help` only shows that task's help.
+    /// A mise without `mise lsp` takes `lsp` for a task name: it would run the project's `lsp`
+    /// task, and `mise lsp --help` shows that task's help, which the task's description can make
+    /// look like the command's. `mise help lsp` shows mise's own help instead.
     fn has_lsp(&mut self, path: &str) -> bool {
-        *self.has_lsp.entry(path.to_string()).or_insert_with(|| {
-            zed::process::Command::new(path)
-                .args(["lsp", "--help"])
-                .output()
-                .is_ok_and(|output| {
-                    output.status == Some(0)
-                        && String::from_utf8_lossy(&output.stdout)
-                            .lines()
-                            .any(|line| line.starts_with("Usage: mise lsp"))
-                })
-        })
+        if self.has_lsp.contains(path) {
+            return true;
+        }
+        let found = zed::process::Command::new(path)
+            .args(["help", "lsp"])
+            .output()
+            .is_ok_and(|output| {
+                output.status == Some(0)
+                    && String::from_utf8_lossy(&output.stdout)
+                        .lines()
+                        .any(|line| line.starts_with("Usage: mise lsp"))
+            });
+        if found {
+            self.has_lsp.insert(path.to_string());
+        }
+        found
     }
 }
 
-/// The absolute path of a binary on Zed's PATH. Context servers have no worktree to search, and
-/// Zed resolves a relative command from the extension's own directory.
-fn find(binary: &str, lookup: &str) -> Result<String> {
-    zed::process::Command::new("sh")
-        .args(["-c", lookup])
+/// The absolute path and the version of a binary on Zed's PATH. Context servers have no
+/// worktree to search, and Zed resolves a relative command from the extension's own directory.
+fn find(binary: &str, since: Version) -> Result<(String, Version)> {
+    let configure = || format!("set `context_servers.{binary}.command` to its path");
+    if zed::current_platform().0 == Os::Windows {
+        return Err(format!("{binary} is looked up with `sh`; {}", configure()));
+    }
+    let output = zed::process::Command::new("sh")
+        .args(["-c", &format!("command -v {binary} && {binary} --version")])
         .output()
         .ok()
         .filter(|output| output.status == Some(0))
-        .map(|output| String::from_utf8_lossy(&output.stdout).trim().to_string())
+        .ok_or_else(|| format!("{binary} is not on the PATH; {}", configure()))?;
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    let mut lines = stdout.lines();
+    let path = lines
+        .next()
+        .map(str::trim)
         .filter(|path| path.starts_with('/'))
-        .ok_or_else(|| {
-            format!("{binary} is not on the PATH; set `context_servers.{binary}.command.path`")
-        })
-}
-
-/// The first `x.y.z` of `<binary> --version`.
-fn version(path: &str) -> Option<Version> {
-    let output = zed::process::Command::new(path)
-        .arg("--version")
-        .output()
-        .ok()?;
-    let text = String::from_utf8_lossy(&output.stdout);
-    text.split(|c: char| !(c.is_ascii_digit() || c == '.'))
-        .find_map(|word| {
-            let mut parts = word.split('.').map(str::parse::<u64>);
-            match (parts.next(), parts.next(), parts.next()) {
-                (Some(Ok(major)), Some(Ok(minor)), Some(Ok(patch))) => Some([major, minor, patch]),
-                _ => None,
-            }
-        })
-}
-
-fn require(binary: &str, path: &str, since: Version) -> Result<Version> {
-    let found = version(path).ok_or_else(|| format!("could not read the version of {path}"))?;
-    if found < since {
-        let [major, minor, patch] = since;
+        .ok_or_else(|| format!("{binary} is not on the PATH; {}", configure()))?
+        .to_string();
+    let version = lines
+        .flat_map(|line| line.split(|c: char| !(c.is_ascii_digit() || c == '.')))
+        .find_map(parse_version)
+        .ok_or_else(|| format!("could not read the version of {path}"))?;
+    if version < since {
         return Err(format!(
-            "{binary} {major}.{minor}.{patch} or later is needed, {path} is {}",
-            found.map(|part| part.to_string()).join(".")
+            "{binary} {} or later is needed, {path} is {}",
+            show(since),
+            show(version)
         ));
     }
-    Ok(found)
+    Ok((path, version))
+}
+
+fn parse_version(word: &str) -> Option<Version> {
+    let mut parts = word.split('.').map(str::parse::<u64>);
+    match (parts.next(), parts.next(), parts.next()) {
+        (Some(Ok(major)), Some(Ok(minor)), Some(Ok(patch))) => Some([major, minor, patch]),
+        _ => None,
+    }
+}
+
+fn show(version: Version) -> String {
+    version.map(|part| part.to_string()).join(".")
 }
 
 impl zed::Extension for MiseExtension {
     fn new() -> Self {
         Self {
-            has_lsp: HashMap::new(),
+            has_lsp: HashSet::new(),
         }
     }
 
@@ -107,7 +113,9 @@ impl zed::Extension for MiseExtension {
             .which("mise")
             .ok_or("mise is not on the PATH; set `lsp.mise.binary.path`")?;
         if !self.has_lsp(&path) {
-            return Err(format!("{path} has no `mise lsp`; upgrade mise"));
+            return Err(format!(
+                "{path} has no `mise lsp`, which comes with jdx/mise#14744"
+            ));
         }
         Ok(zed::Command {
             command: path,
@@ -120,39 +128,25 @@ impl zed::Extension for MiseExtension {
     fn context_server_command(
         &mut self,
         context_server_id: &ContextServerId,
-        project: &Project,
+        _project: &Project,
     ) -> Result<zed::Command> {
-        let id = context_server_id.as_ref();
-        let configured = ContextServerSettings::for_project(id, project)
-            .ok()
-            .and_then(|settings| settings.command)
-            .filter(|command| command.path.is_some());
-        if let Some(command) = configured {
-            return Ok(zed::Command {
-                command: command.path.unwrap_or_default(),
-                args: command.arguments.unwrap_or_else(|| vec!["mcp".to_string()]),
-                env: command.env.unwrap_or_default().into_iter().collect(),
-            });
-        }
-        let (path, args) = match id {
+        let (command, args) = match context_server_id.as_ref() {
             "mise" => {
-                let path = find("mise", "command -v mise")?;
-                require("mise", &path, MISE_MCP_SINCE)?;
+                let (path, _) = find("mise", MISE_MCP_SINCE)?;
                 (path, vec!["mcp".to_string()])
             }
             "pitchfork" => {
-                let path = find("pitchfork", "command -v pitchfork")?;
-                let version = require("pitchfork", &path, PITCHFORK_SINCE)?;
+                let (path, version) = find("pitchfork", PITCHFORK_SINCE)?;
                 let mut args = vec!["mcp".to_string()];
                 if version >= PITCHFORK_LOCAL_MCP_SINCE {
                     args.push("--local".to_string());
                 }
                 (path, args)
             }
-            _ => return Err(format!("unknown context server {id}")),
+            id => return Err(format!("unknown context server {id}")),
         };
         Ok(zed::Command {
-            command: path,
+            command,
             args,
             env: Vec::new(),
         })
