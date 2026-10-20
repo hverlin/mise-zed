@@ -1,0 +1,5 @@
+# `.tool-versions` files, as asdf and mise read them: a tool and its versions on each line.
+name = "Tool Versions"
+grammar = "tool_versions"
+path_suffixes = ["tool-versions"]
+line_comments = ["# "]

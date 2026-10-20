@@ -1,0 +1,17 @@
+{
+  "grammars": [
+    {
+      "name": "mise_toml",
+      "camelcase": "MiseToml",
+      "scope": "source.toml",
+      "path": ".",
+      "file-types": ["toml"]
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "tree-sitter-toml, with the content of strings as a node, for mise-zed",
+    "links": { "repository": "https://github.com/hverlin/mise-zed" }
+  }
+}

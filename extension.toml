@@ -3,16 +3,30 @@ name = "mise"
 version = "0.0.1"
 schema_version = 1
 authors = ["hverlin"]
-description = "mise config files (diagnostics, completion, hover, formatting from `mise lsp`), task and tool runners, snippets, and the mise and pitchfork MCP servers"
+description = "mise config files (diagnostics, completion, hover, formatting from `mise lsp`, highlighted task scripts), .tool-versions files, task and tool runners, snippets, and the mise and pitchfork MCP servers"
 repository = "https://github.com/hverlin/mise-zed"
 
-# the "mise" language parses with the grammar of the TOML extension
-languages = ["languages/mise"]
+languages = ["languages/mise", "languages/mise-shell", "languages/tool-versions", "languages/usage"]
 snippets = ["snippets/mise.json", "snippets/shell script.json"]
 
-[grammars.toml]
-repository = "https://github.com/tree-sitter/tree-sitter-toml"
-rev = "342d9be207c2dba869b9967124c679b5e6fd0ebe"
+# The grammars live in this repository; Zed checks them out at `rev`, a commit that has them.
+# `mise_toml` is tree-sitter-toml with the content of strings as a node, for the scripts of tasks.
+[grammars.mise_toml]
+repository = "https://github.com/hverlin/mise-zed"
+rev = "GRAMMARS_REV"
+path = "tree-sitter-mise-toml"
+
+[grammars.tool_versions]
+repository = "https://github.com/hverlin/mise-zed"
+rev = "GRAMMARS_REV"
+path = "tree-sitter-tool-versions"
+
+# tree-sitter-kdl 2.0.0, renamed: usage specs are KDL 2, the `kdl` grammar of the KDL extension
+# reads KDL 1
+[grammars.usage_kdl]
+repository = "https://github.com/hverlin/mise-zed"
+rev = "GRAMMARS_REV"
+path = "tree-sitter-usage-kdl"
 
 # On TOML too, for the config files the `mise` language does not match (`mise/config.toml`,
 # `conf.d/*.toml`), but only for users who enable it: it would start in every Rust or Python

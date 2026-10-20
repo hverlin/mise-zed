@@ -1,0 +1,17 @@
+[
+  {
+    "label": "mise install",
+    "command": "mise install",
+    "cwd": "$ZED_DIRNAME"
+  },
+  {
+    "label": "mise upgrade --interactive",
+    "command": "mise upgrade --interactive",
+    "cwd": "$ZED_DIRNAME"
+  },
+  {
+    "label": "mise outdated",
+    "command": "mise outdated",
+    "cwd": "$ZED_DIRNAME"
+  }
+]

@@ -1,0 +1,41 @@
+================================================================================
+Tools, versions and comments
+================================================================================
+
+node 24.11.0 22  # tried in this order
+python ref:main
+# a comment
+
+ruby system
+
+--------------------------------------------------------------------------------
+
+(document
+  (tool
+    name: (name)
+    version: (version)
+    version: (version))
+  (comment)
+  (tool
+    name: (name)
+    version: (version))
+  (comment)
+  (tool
+    name: (name)
+    version: (version)))
+
+================================================================================
+Tabs, no newline at the end
+================================================================================
+
+deno	2.5.0
+bun 1.3.0
+--------------------------------------------------------------------------------
+
+(document
+  (tool
+    name: (name)
+    version: (version))
+  (tool
+    name: (name)
+    version: (version)))

@@ -1,0 +1,15 @@
+{
+  "name": "tree-sitter-mise-toml",
+  "version": "0.1.0",
+  "private": true,
+  "description": "tree-sitter-toml, with the content of strings as a node, for mise-zed",
+  "license": "MIT",
+  "devDependencies": {
+    "regexp-util": "1.2.2",
+    "tree-sitter-cli": "0.26.13"
+  },
+  "scripts": {
+    "generate": "tree-sitter generate",
+    "test": "tree-sitter test"
+  }
+}

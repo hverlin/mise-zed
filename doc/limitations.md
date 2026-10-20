@@ -5,8 +5,7 @@ this one cannot yet.
 
 ## Waiting for `mise lsp`
 
-These need the language server to provide them, as follow-ups of
-[jdx/mise#14744](https://github.com/jdx/mise/pull/14744):
+These need the language server to provide them.
 
 - Completion of tool names and versions
 - Completion of task names in `depends`, go to definition and find references
@@ -23,6 +22,8 @@ These need the language server to provide them, as follow-ups of
 - Configuring other extensions to use the tools of mise: Zed loads the
   environment of your shell, so tools that `mise activate` puts on the PATH are
   already found.
-- Shell highlighting of the scripts in `run = '''...'''`: Zed would highlight
-  the TOML quotes along with the script.
-- `.tool-versions` files: there is no grammar for them.
+- Completion inside the scripts of tasks: Zed highlights them in their
+  language, but runs no language server on a part of a file.
+- In a Python or JavaScript script of a task, Zed's own run button can show up
+  on an `if __name__ == "__main__":` block or a test; it would run the whole
+  config file. Shell scripts use a `mise Shell` language without one.

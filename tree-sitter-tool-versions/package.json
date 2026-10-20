@@ -1,0 +1,14 @@
+{
+  "name": "tree-sitter-tool-versions",
+  "version": "0.1.0",
+  "private": true,
+  "description": "tree-sitter grammar for .tool-versions files, for mise-zed",
+  "license": "MIT",
+  "devDependencies": {
+    "tree-sitter-cli": "0.26.13"
+  },
+  "scripts": {
+    "generate": "tree-sitter generate",
+    "test": "tree-sitter test"
+  }
+}

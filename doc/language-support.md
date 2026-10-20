@@ -43,6 +43,7 @@ To keep a file as TOML instead:
 
 - **Highlighting, outline and brackets**, from the
   [TOML extension](https://github.com/zed-extensions/toml)'s queries.
+- **Highlighted task scripts**: see [below](#scripts-of-tasks).
 - **Diagnostics** from `mise lsp`: TOML syntax errors, unknown keys with a
   suggestion, values of the wrong type, and deprecated keys. Unknown
   `[settings]` keys are warnings, because mise still loads the file; other
@@ -58,6 +59,38 @@ To keep a file as TOML instead:
 
 Files that `[task_config] includes` lists are tasks, not configs: `mise lsp`
 leaves them alone, even when they are named like `mise.tasks.toml`.
+
+## Scripts of tasks
+
+The script of a task is highlighted in its language: as shell by default, or as
+the language its shebang names. That covers `run = "..."`, `run = '''...'''`,
+each string of `run = [...]`, and the dotted `tasks.build.run = "..."`.
+
+```toml
+[tasks.build]
+run = "cargo build --release"   # shell
+
+[tasks.report]
+run = '''
+#!/usr/bin/env python3
+print("report")
+'''                             # Python; node, bun and deno give JavaScript, ruby gives Ruby
+```
+
+A `usage = '''...'''` [usage](https://usage.jdx.dev/) spec is highlighted as the
+`Usage` language, which also opens `*.usage.kdl` files: KDL 2, with usage's
+directives (`arg`, `flag`, `cmd`, `complete`, ...) as keywords. Ruby scripts
+need the [Ruby extension](https://zed.dev/extensions/ruby).
+
+Zed only highlights these scripts: completion and diagnostics inside them would
+need a language server that sees the script on its own.
+
+## `.tool-versions` files
+
+`.tool-versions` files open as the `Tool Versions` language: tool names,
+versions and comments are highlighted, `latest`, `system` and `lts*` as
+constants, and `ref:`, `path:`, `prefix:` and `sub-*:` versions apart. The outline
+lists the tools. `mise lsp` does not serve these files.
 
 ## Next to Tombi or another TOML extension
 

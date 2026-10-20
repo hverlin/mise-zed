@@ -46,6 +46,9 @@ node = "24"
 version = "3.13"
 ```
 
+`task: spawn` also offers `mise install`, `mise upgrade --interactive` and
+`mise outdated` while a `.tool-versions` file is open.
+
 ## No button
 
 - A task or tool whose name has `$`, a backtick, `\` or `!`: Zed hands the

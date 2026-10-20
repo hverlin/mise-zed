@@ -1,0 +1,17 @@
+{
+  "grammars": [
+    {
+      "name": "usage_kdl",
+      "camelcase": "UsageKdl",
+      "scope": "source.kdl",
+      "path": ".",
+      "file-types": ["usage.kdl"]
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "tree-sitter-kdl 2.0.0, renamed usage_kdl, for the usage specs of mise-zed",
+    "links": { "repository": "https://github.com/hverlin/mise-zed" }
+  }
+}

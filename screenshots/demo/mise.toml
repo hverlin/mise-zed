@@ -1,0 +1,48 @@
+[tools]
+node = "24"
+python = "3.13"
+"npm:prettier" = "latest"
+
+[settings]
+experimantal = true
+
+[tasks.hello]
+run = 'echo "hello from $(whoami)"'
+
+[tasks.deploy]
+description = "Deploy to an environment"
+usage = '''
+arg "<env>" help="Where to deploy" {
+  choices "staging" "production"
+}
+flag "-f --force" help="Skip the checks"
+'''
+run = "./scripts/deploy.sh ${usage_env?}"
+
+[tasks.build]
+description = "Build every package"
+depends = ["lint"]
+run = '''
+#!/usr/bin/env bash
+set -euo pipefail
+for pkg in packages/*; do
+  echo "building $pkg"
+  (cd "$pkg" && npm run build)
+done
+'''
+
+[tasks.report]
+description = "Summarize the test results"
+run = '''
+#!/usr/bin/env python3
+import json, pathlib
+results = json.loads(pathlib.Path("results.json").read_text())
+print(f"{results['passed']} passed, {results['failed']} failed")
+'''
+
+[tasks]
+lint = "prettier --check ."
+
+[env]
+NODE_ENV = "development"
+_.path = ["./node_modules/.bin"]

@@ -1,0 +1,15 @@
+{
+  "name": "tree-sitter-usage-kdl",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "tree-sitter-kdl 2.0.0, renamed usage_kdl, for the usage specs of mise-zed",
+  "license": "MIT",
+  "devDependencies": {
+    "tree-sitter-cli": "0.26.13"
+  },
+  "scripts": {
+    "generate": "tree-sitter generate",
+    "test": "tree-sitter test"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "grammars": [
+    {
+      "name": "tool_versions",
+      "camelcase": "ToolVersions",
+      "scope": "source.tool-versions",
+      "path": ".",
+      "file-types": [".tool-versions"]
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "tree-sitter grammar for .tool-versions files, for mise-zed",
+    "links": { "repository": "https://github.com/hverlin/mise-zed" }
+  }
+}

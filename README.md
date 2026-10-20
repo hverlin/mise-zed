@@ -5,12 +5,6 @@
 > [mise](https://mise.jdx.dev/) is a polyglot tool version manager, environment
 > variables manager, and tasks runner.
 >
-> - Like asdf (or nvm or pyenv but for any language), it manages dev tools like
->   node, python, cmake, terraform, and hundreds more.
-> - Like direnv, it manages environment variables for different project
->   directories.
-> - Like make, it manages tasks used to build and test projects.
->
 > [pitchfork](https://pitchfork.jdx.dev/) runs the daemons of a project, like a
 > database or a development server, which
 > [mise can declare too](https://mise.jdx.dev/daemons.html).
@@ -21,10 +15,10 @@ quick fixes in `mise.toml`, run buttons for
 [snippets](doc/snippets.md), and the `mise` and `pitchfork`
 [MCP servers](doc/ai-agents.md) for the agent.
 
+[![mise-zed screenshot](screenshots/mise-zed.webp)](doc/language-support.md)
+
 > [!NOTE]
-> This extension is a prototype. The language server it runs,
-> [`mise lsp`](https://github.com/jdx/mise/pull/14744), is not in a released
-> version of mise yet.
+> This extension is a prototype. The language server it runs is not in a released version of mise yet.
 
 ## Installation
 
@@ -70,33 +64,36 @@ See [AI agents](doc/ai-agents.md#turning-a-server-off) to turn one off.
 
 ### [mise.toml Language Support](doc/language-support.md)
 
-- 📝 Syntax highlighting, outline and brackets for `mise.toml` files
-- 🩺 Diagnostics: TOML syntax, unknown keys with a suggestion, wrong types, and
+- Syntax highlighting, outline and brackets for `mise.toml` files
+- Task scripts (`run`) highlighted as shell, or as Python or JavaScript
+  from their shebang, and [usage](https://usage.jdx.dev/) specs
+- Diagnostics: TOML syntax, unknown keys with a suggestion, wrong types, and
   deprecated keys
-- 🪄 Quick fix to replace an unknown key with the one mise suggests
-- 📚 Completion of keys (inline tables included) and of values with a fixed
+- Quick fix to replace an unknown key with the one mise suggests
+- Completion of keys (inline tables included) and of values with a fixed
   set, such as booleans and enums
-- 💬 Hover documentation for keys
-- 🧹 Formatting, as `mise fmt` does
+- Hover documentation for keys
+- Formatting, as `mise fmt` does
 
 ### [Tasks](doc/tasks-and-tools.md)
 
-- ▶️ Run buttons on [mise tasks](https://mise.jdx.dev/tasks/) in `mise.toml`
-- ⚡ `mise run`, `mise install`, `mise doctor` and more in `task: spawn`
+- Run buttons on [mise tasks](https://mise.jdx.dev/tasks/) in `mise.toml`
+- `mise run`, `mise install`, `mise doctor` and more in `task: spawn`
 
 ### [Tools](doc/tasks-and-tools.md#tools)
 
-- 📦 Run buttons on [mise tools](https://mise.jdx.dev/dev-tools/) to install or
-  upgrade them
+- Run buttons on [mise tools](https://mise.jdx.dev/dev-tools/) to install or
+  upgrade them, in `mise.toml`
+- Syntax highlighting and outline for `.tool-versions` files
 
 ### [AI agents (MCP)](doc/ai-agents.md)
 
-- 🤖 The `mise mcp` and `pitchfork mcp` servers, for the agent of Zed, in the
+- The `mise mcp` and `pitchfork mcp` servers, for the agent of Zed, in the
   project directory
 
 ### [Snippets](doc/snippets.md)
 
-- 📝 `mise-task` snippets to create tasks in `mise.toml` and file tasks, and
+- `mise-task` snippets to create tasks in `mise.toml` and file tasks, and
   `mise-daemon` snippets to declare daemons in `mise.toml`
 
 ## [Documentation](doc/)
@@ -131,4 +128,7 @@ See [AI agents](doc/ai-agents.md#turning-a-server-off) to turn one off.
 This extension is licensed under the MIT License. See the [LICENSE](LICENSE)
 file for details. The TOML queries in `languages/mise` come from the
 [TOML extension](https://github.com/zed-extensions/toml), under the Apache
-License 2.0 ([LICENSE-APACHE](LICENSE-APACHE)).
+License 2.0 ([LICENSE-APACHE](LICENSE-APACHE)), and `tree-sitter-mise-toml` and
+`tree-sitter-usage-kdl` are forks of
+[tree-sitter-toml](https://github.com/tree-sitter/tree-sitter-toml) and
+[tree-sitter-kdl](https://github.com/tree-sitter-grammars/tree-sitter-kdl) (MIT).

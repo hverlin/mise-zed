@@ -1,0 +1,7 @@
+# The shell scripts of tasks and hooks, which languages/mise/injections.scm injects: Zed's bash
+# grammar, with highlights only. Shell Script would add its run button to each script, which runs
+# the whole mise.toml with bash.
+name = "mise Shell"
+grammar = "bash"
+hidden = true
+line_comments = ["# "]
