@@ -118,7 +118,8 @@ start in every Rust or Python project. See
 This extension is licensed under the MIT License. See the [LICENSE](LICENSE)
 file for details. The TOML queries in `languages/mise` come from the
 [TOML extension](https://github.com/zed-extensions/toml), under the Apache
-License 2.0 ([LICENSE-APACHE](LICENSE-APACHE)), and `tree-sitter-mise-toml` and
-`tree-sitter-usage-kdl` are forks of
-[tree-sitter-toml](https://github.com/tree-sitter/tree-sitter-toml) and
+License 2.0 ([LICENSE-APACHE](LICENSE-APACHE)), and `tree-sitter-mise-toml`,
+`tree-sitter-mise-bash` and `tree-sitter-usage-kdl` are forks of
+[tree-sitter-toml](https://github.com/tree-sitter/tree-sitter-toml),
+[tree-sitter-bash](https://github.com/tree-sitter/tree-sitter-bash) and
 [tree-sitter-kdl](https://github.com/tree-sitter-grammars/tree-sitter-kdl) (MIT).

@@ -30,7 +30,7 @@ your settings:
 | `extension.toml` | the manifest: languages, grammars, language server, snippets, capabilities |
 | `src/lib.rs` | the command of the language server |
 | `languages/mise/` | the `mise` language: `config.toml`, the queries, `runnables.scm` and `tasks.json` for the run buttons |
-| `languages/mise-shell/` | the `mise Shell` language of the scripts of tasks: Zed's `bash` grammar, without Shell Script's run button |
+| `languages/mise-shell/`, `tree-sitter-mise-bash/` | the `mise Shell` language of the scripts of tasks, without Shell Script's run button, and its grammar, tree-sitter-bash 0.25.1 renamed |
 | `languages/tool-versions/` | the `Tool Versions` language |
 | `tree-sitter-mise-toml/` | the grammar of the `mise` language, a fork of tree-sitter-toml |
 | `tree-sitter-tool-versions/` | the grammar of `.tool-versions` files |
@@ -52,7 +52,10 @@ others.
 
 ## Grammars
 
-The three grammars live in this repository. `tree-sitter-usage-kdl` is
+The four grammars live in this repository. `tree-sitter-mise-bash` is
+[tree-sitter-bash](https://github.com/tree-sitter/tree-sitter-bash) 0.25.1,
+renamed `mise_bash`, so that the `mise Shell` language has a grammar of its
+own. `tree-sitter-usage-kdl` is
 [tree-sitter-kdl](https://github.com/tree-sitter-grammars/tree-sitter-kdl)
 2.0.0, which reads KDL 2, renamed `usage_kdl` so that it does not replace the
 `kdl` grammar of the KDL extension. `tree-sitter-mise-toml` is
@@ -64,7 +67,7 @@ highlights in the language of the script.
 After a change to a `grammar.js`, regenerate its parser and run its tests:
 
 ```sh
-cd tree-sitter-tool-versions   # or tree-sitter-mise-toml
+cd tree-sitter-tool-versions   # or tree-sitter-mise-toml, ...
 npm install
 npm run generate
 npm test
@@ -95,8 +98,7 @@ and a mise that has `mise lsp`, to take it again.
 The extension is MIT. The queries of `languages/mise`, except `runnables.scm`
 and the mise part of `injections.scm`, come from the
 [TOML extension](https://github.com/zed-extensions/toml), under the Apache
-License 2.0 (`LICENSE-APACHE`). `tree-sitter-mise-toml` and
-`tree-sitter-usage-kdl` are forks of tree-sitter-toml and tree-sitter-kdl, MIT
-(their `LICENSE`). `languages/mise-shell/highlights.scm` comes from
-[tree-sitter-bash](https://github.com/tree-sitter/tree-sitter-bash) 0.25.1
-(MIT).
+License 2.0 (`LICENSE-APACHE`). `tree-sitter-mise-toml`,
+`tree-sitter-mise-bash` and `tree-sitter-usage-kdl` are forks of
+tree-sitter-toml, tree-sitter-bash and tree-sitter-kdl, MIT (their `LICENSE`).
+`languages/mise-shell/highlights.scm` comes from tree-sitter-bash 0.25.1 (MIT).
