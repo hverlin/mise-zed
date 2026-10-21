@@ -49,11 +49,25 @@ To keep a file as TOML instead:
   `[settings]` keys are warnings, because mise still loads the file; other
   unknown keys are errors. While a file does not parse, the diagnostics of the
   parts you did not edit stay.
-- **A quick fix** that replaces an unknown key with the one mise suggests.
-- **Completion** of keys, inside inline tables too, and of values with a fixed
-  set, such as booleans and enums.
-- **Hover** documentation for keys.
+- **Diagnostics for tasks**: a task name in `depends`, `depends_post`,
+  `wait_for` or `run = [{ task = "..." }]` that no task defines, and an
+  `extends` that no `[task_templates]` entry defines, are warnings, with a
+  suggestion. A dependency cycle is an error.
+- **Quick fixes** that replace an unknown key or task name with the one mise
+  suggests, and rewrite a deprecated key to its replacement.
+- **Completion** of keys, inside inline tables too, of values with a fixed
+  set, such as booleans and enums, of task names where a task is expected, of
+  templates in `extends`, and of tool names under `[tools]`, from mise's
+  registry.
+- **Hover** documentation for keys; for a task, its description and command;
+  for a tool, its description and backends.
+- **Go to definition**, **find references** and **rename** for tasks. Rename
+  rewrites `[tasks.<name>]`, its subtables and the references in the file; a
+  task defined in another file is renamed there.
 - **Formatting**, as `mise fmt` does.
+
+The tasks are those of the open file, of the configs in the directories above
+it, and of the files their `[task_config] includes` names.
 - [Run buttons](tasks-and-tools.md) on tasks and tools, and
   [snippets](snippets.md).
 

@@ -7,13 +7,17 @@ this one cannot yet.
 
 These need the language server to provide them.
 
-- Completion of tool names and versions
-- Completion of task names in `depends`, go to definition and find references
-  for tasks
+- Completion of tool versions
+- File tasks (`mise-tasks/`, `.mise/tasks/`): no completion, hover or go to
+  definition for them
+- Find references and rename for tasks cover the open file only
+- Unsaved changes to other configs and to `[task_config] includes` files:
+  `mise lsp` reads those from disk
 - Completion of [tera templates](https://mise.jdx.dev/templates.html) and of
   [task arguments](https://mise.jdx.dev/tasks/task-arguments.html) (`usage`)
 - Inline tool versions and outdated markers
-- The `mise tasks validate` diagnostics
+- The other `mise tasks validate` checks, such as alias conflicts, empty
+  scripts or usage specs
 
 ## Not possible in a Zed extension
 

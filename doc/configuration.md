@@ -23,6 +23,25 @@ the check:
 Without `arguments`, Zed starts the binary with none, and mise prints its help
 and exits.
 
+## Turning features off
+
+`mise lsp` takes switches for the features that another server could also
+provide. Zed passes them from your settings:
+
+```json
+{
+  "lsp": {
+    "mise": {
+      "initialization_options": { "formatting": false, "hover": false }
+    }
+  }
+}
+```
+
+The switches are `formatting`, `hover`, `completion`, `definition`,
+`references` and `rename`, all on by default. Diagnostics and quick fixes
+stay.
+
 ## `mise lsp` on TOML files
 
 `mise lsp` serves the `mise` language. It is also registered for TOML, for
@@ -40,6 +59,10 @@ would start in every Rust or Python project. To turn it on:
 
 `mise lsp` answers only for mise config files: `Cargo.toml` and
 `pyproject.toml` get nothing from it.
+
+There, it runs next to your TOML server, such as Tombi, and both answer
+hovers and completions. The [switches](#turning-features-off) turn a feature
+off in every file `mise lsp` serves, `mise` files included.
 
 ## Which files are `mise` files
 

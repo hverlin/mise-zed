@@ -58,12 +58,15 @@ start in every Rust or Python project. See
 - Syntax highlighting, outline and brackets for `mise.toml` files
 - Task scripts (`run`) highlighted as shell, or as Python or JavaScript
   from their shebang, and [usage](https://usage.jdx.dev/) specs
-- Diagnostics: TOML syntax, unknown keys with a suggestion, wrong types, and
-  deprecated keys
-- Quick fix to replace an unknown key with the one mise suggests
-- Completion of keys (inline tables included) and of values with a fixed
-  set, such as booleans and enums
-- Hover documentation for keys
+- Diagnostics: TOML syntax, unknown keys with a suggestion, wrong types,
+  deprecated keys, unknown task names and dependency cycles
+- Quick fixes to replace an unknown key or task name with the one mise
+  suggests, and to rewrite a deprecated key
+- Completion of keys (inline tables included), of values with a fixed set,
+  such as booleans and enums, of task names in `depends` and `wait_for`, and
+  of tool names from mise's registry
+- Hover documentation for keys, tasks and tools
+- Go to definition, find references and rename for tasks
 - Formatting, as `mise fmt` does
 
 ### [Tasks](doc/tasks-and-tools.md)

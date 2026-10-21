@@ -1,8 +1,9 @@
 # mise-zed documentation
 
 - [mise.toml language support](language-support.md): which files are `mise`
-  files, diagnostics, quick fixes, completion, hover, formatting, highlighted
-  task scripts, `.tool-versions` files
+  files, diagnostics, quick fixes, completion, hover, go to definition and
+  rename for tasks, formatting, highlighted task scripts, `.tool-versions`
+  files
 - [Tasks and tools](tasks-and-tools.md): run buttons and `task: spawn`
 - [AI agents (MCP)](ai-agents.md): add the `mise mcp` server to the agent
 - [Snippets](snippets.md)
