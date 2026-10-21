@@ -1,24 +1,20 @@
 # mise-zed 🧑‍🍳
 
-[Zed](https://zed.dev/) extension for [mise](https://mise.jdx.dev/) (`mise-en-place`) and [pitchfork](https://pitchfork.jdx.dev/). [Documentation](doc/)
+[Zed](https://zed.dev/) extension for [mise](https://mise.jdx.dev/) (`mise-en-place`). [Documentation](doc/)
 
 > [mise](https://mise.jdx.dev/) is a polyglot tool version manager, environment
 > variables manager, and tasks runner.
->
-> [pitchfork](https://pitchfork.jdx.dev/) runs the daemons of a project, like a
-> database or a development server, which
-> [mise can declare too](https://mise.jdx.dev/daemons.html).
 
 This Zed extension brings `mise` to your editor: diagnostics, completion and
 quick fixes in `mise.toml`, run buttons for
 [tasks](doc/tasks-and-tools.md) and [tools](doc/tasks-and-tools.md#tools),
-[snippets](doc/snippets.md), and the `mise` and `pitchfork`
-[MCP servers](doc/ai-agents.md) for the agent.
+and [snippets](doc/snippets.md).
 
 [![mise-zed screenshot](screenshots/mise-zed.webp)](doc/language-support.md)
 
 > [!NOTE]
-> This extension is a prototype. The language server it runs is not in a released version of mise yet.
+> The language server needs mise 2026.10.18 or later, which has
+> [`mise lsp`](https://mise.jdx.dev/cli/lsp.html).
 
 ## Installation
 
@@ -31,8 +27,8 @@ source:
 3. In Zed, run `zed: install dev extension` from the command palette and pick
    the cloned folder.
 
-Zed 1.24 or later is needed. The language server needs a mise with
-`mise lsp`; the rest works with any recent mise.
+Zed 1.24 or later is needed. The language server needs mise 2026.10.18 or
+later; the rest works with any recent mise.
 
 ## Important Defaults
 
@@ -54,11 +50,6 @@ to map more files, or to keep one as TOML.
 `mise/config.toml` or `conf.d/*.toml`, but it is off by default: it would
 start in every Rust or Python project. See
 [Configuration](doc/configuration.md#mise-lsp-on-toml-files) to turn it on.
-
-### The MCP servers run in every project
-
-The `mise` and `pitchfork` MCP servers start in every project, trusted or not.
-See [AI agents](doc/ai-agents.md#turning-a-server-off) to turn one off.
 
 ## Features
 
@@ -88,8 +79,7 @@ See [AI agents](doc/ai-agents.md#turning-a-server-off) to turn one off.
 
 ### [AI agents (MCP)](doc/ai-agents.md)
 
-- The `mise mcp` and `pitchfork mcp` servers, for the agent of Zed, in the
-  project directory
+- How to add the `mise mcp` server to the agent of Zed
 
 ### [Snippets](doc/snippets.md)
 

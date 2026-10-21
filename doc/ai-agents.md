@@ -1,38 +1,23 @@
 # AI agents (MCP)
 
-The extension provides two [MCP](https://modelcontextprotocol.io/) servers to the
-agent of Zed, started in the project directory:
-
-| Server | Command | Gives the agent |
-|---|---|---|
-| `mise` | `mise mcp` (mise 2026.6.6 or later) | the tools, tasks, environment and config of the project |
-| `pitchfork` | `pitchfork mcp` (pitchfork 2.25 or later; `--local` from 2.32) | the daemons of the project |
-
-See them in the agent panel's settings.
-
-## The binaries
-
-The servers run the `mise` and `pitchfork` of Zed's PATH, found with `sh`
-(macOS and Linux). On Windows, or to use another binary, give the command:
+[`mise mcp`](https://mise.jdx.dev/mcp.html) gives an AI agent the tools,
+tasks, environment and config of a project. The extension does not provide it:
+add it to the agent of Zed in your settings, or from
+**Settings → AI → MCP Servers** with `Add Local Server`.
 
 ```json
 {
   "context_servers": {
-    "mise": { "command": "/path/to/mise", "args": ["mcp"] }
+    "mise": { "command": "mise", "args": ["mcp"] }
   }
 }
 ```
 
-Zed then runs that command as is, without the version check.
+Zed starts the server in the folder of the active project and restarts it when
+you switch, so it needs no `--cd`. If Zed does not find `mise` on its PATH,
+give its absolute path as `command`.
 
-## Turning a server off
-
-The servers start in every project, trusted or not. To turn one off:
-
-```json
-{
-  "context_servers": {
-    "pitchfork": { "enabled": false }
-  }
-}
-```
+In your user settings, the server starts in every project you open. To keep
+it to one project, put it in that project's `.zed/settings.json` instead. See
+the [mise documentation](https://mise.jdx.dev/mcp.html#access-and-execution)
+for what the agent can read and run.

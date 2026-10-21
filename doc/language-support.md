@@ -1,8 +1,8 @@
 # mise.toml language support
 
 The extension adds a `mise` language for the mise config files and runs
-[`mise lsp`](https://github.com/jdx/mise/pull/14744), the language server built
-into mise, for them.
+[`mise lsp`](https://mise.jdx.dev/cli/lsp.html), the language server built
+into mise 2026.10.18 and later, for them.
 
 ## Which files are `mise` files
 
@@ -103,6 +103,6 @@ do not apply to `mise` files either.
 
 The language server runs the `mise` of the project's PATH, after checking with
 `mise help lsp` that it has `mise lsp`. A mise that predates the command takes
-`lsp` for a task name, and would run the project's `lsp` task. Until a released
-mise has `mise lsp`, the server does not start and says why. See
+`lsp` for a task name, and would run the project's `lsp` task. With a mise
+older than 2026.10.18, the server does not start and says why. See
 [Configuration](configuration.md#the-mise-binary) to use another binary.

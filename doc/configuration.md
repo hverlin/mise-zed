@@ -1,7 +1,7 @@
 # Configuration
 
-The extension has no settings of its own: it uses Zed's settings for languages,
-language servers and context servers.
+The extension has no settings of its own: it uses Zed's settings for languages
+and language servers.
 
 ## The `mise` binary
 
@@ -48,4 +48,4 @@ for `file_types`.
 
 ## MCP servers
 
-See [AI agents](ai-agents.md) to turn a server off or give its command.
+The extension provides none. See [AI agents](ai-agents.md) to add `mise mcp`.

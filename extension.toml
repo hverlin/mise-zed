@@ -1,9 +1,9 @@
 id = "mise"
 name = "mise"
-version = "0.0.1"
+version = "0.1.0"
 schema_version = 1
 authors = ["hverlin"]
-description = "mise config files (diagnostics, completion, hover, formatting from `mise lsp`, highlighted task scripts), .tool-versions files, task and tool runners, snippets, and the mise and pitchfork MCP servers"
+description = "mise config files (diagnostics, completion, hover, formatting from `mise lsp`, highlighted task scripts), .tool-versions files, task and tool runners, and snippets"
 repository = "https://github.com/hverlin/mise-zed"
 
 languages = ["languages/mise", "languages/mise-shell", "languages/tool-versions", "languages/usage"]
@@ -40,23 +40,8 @@ opt_in_languages = ["TOML"]
 "mise" = "toml"
 "TOML" = "toml"
 
-[context_servers.mise]
-
-[context_servers.pitchfork]
-
 # `mise help lsp`, to know the mise binary has `mise lsp` before starting it
 [[capabilities]]
 kind = "process:exec"
 command = "*"
 args = ["help", "lsp"]
-
-# where mise and pitchfork are, and their versions, for the MCP servers
-[[capabilities]]
-kind = "process:exec"
-command = "sh"
-args = ["-c", "command -v mise && mise --version"]
-
-[[capabilities]]
-kind = "process:exec"
-command = "sh"
-args = ["-c", "command -v pitchfork && pitchfork --version"]

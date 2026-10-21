@@ -27,9 +27,10 @@ your settings:
 
 | Path | What |
 |---|---|
-| `extension.toml` | the manifest: language, grammar, language server, MCP servers, snippets, capabilities |
-| `src/lib.rs` | the commands of the language server and of the MCP servers |
+| `extension.toml` | the manifest: languages, grammars, language server, snippets, capabilities |
+| `src/lib.rs` | the command of the language server |
 | `languages/mise/` | the `mise` language: `config.toml`, the queries, `runnables.scm` and `tasks.json` for the run buttons |
+| `languages/mise-shell/` | the `mise Shell` language of the scripts of tasks: Zed's `bash` grammar, without Shell Script's run button |
 | `languages/tool-versions/` | the `Tool Versions` language |
 | `tree-sitter-mise-toml/` | the grammar of the `mise` language, a fork of tree-sitter-toml |
 | `tree-sitter-tool-versions/` | the grammar of `.tool-versions` files |
@@ -96,4 +97,6 @@ and the mise part of `injections.scm`, come from the
 [TOML extension](https://github.com/zed-extensions/toml), under the Apache
 License 2.0 (`LICENSE-APACHE`). `tree-sitter-mise-toml` and
 `tree-sitter-usage-kdl` are forks of tree-sitter-toml and tree-sitter-kdl, MIT
-(their `LICENSE`).
+(their `LICENSE`). `languages/mise-shell/highlights.scm` comes from
+[tree-sitter-bash](https://github.com/tree-sitter/tree-sitter-bash) 0.25.1
+(MIT).
