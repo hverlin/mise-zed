@@ -1,0 +1,16 @@
+{
+  "grammars": [
+    {
+      "name": "mise_bash",
+      "camelcase": "MiseBash",
+      "scope": "source.bash",
+      "path": "."
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "tree-sitter-bash 0.25.1, renamed mise_bash, for the shell scripts of mise tasks in mise-zed",
+    "links": { "repository": "https://github.com/hverlin/mise-zed" }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "tree-sitter-mise-bash",
+  "version": "0.1.0",
+  "private": true,
+  "description": "tree-sitter-bash 0.25.1, renamed mise_bash, for the shell scripts of mise tasks in mise-zed",
+  "license": "MIT",
+  "devDependencies": {
+    "tree-sitter-cli": "0.26.13"
+  },
+  "scripts": {
+    "generate": "tree-sitter generate",
+    "test": "tree-sitter test"
+  }
+}
