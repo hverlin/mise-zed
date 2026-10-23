@@ -14,11 +14,11 @@ and [snippets](doc/snippets.md).
 
 > [!NOTE]
 > The language server needs mise 2026.10.18 or later, which has
-> [`mise lsp`](https://mise.jdx.dev/cli/lsp.html).
+> [`mise lsp`](https://github.com/jdx/mise/releases/tag/v2026.10.18).
 
 ## Installation
 
-The extension is not in the Zed extension registry yet. To install it from
+The extension is not in the Zed extension registry [yet](https://github.com/zed-industries/extensions/pull/8073). To install it from
 source:
 
 1. Install Rust with [rustup](https://rustup.rs/), which Zed uses to build the
@@ -30,26 +30,8 @@ source:
 Zed 1.24 or later is needed. The language server needs mise 2026.10.18 or
 later; the rest works with any recent mise.
 
-## Important Defaults
-
 The extension comes with defaults that you might want to change. See
 [Configuration](doc/configuration.md) for every setting.
-
-### `mise.toml` is a `mise` file, not a TOML file
-
-`mise.toml`, `.mise.toml`, `mise.local.toml`, `.config/mise/config.toml` and the
-other common config files open as the `mise` language, highlighted as TOML.
-TOML extensions such as [Tombi](https://zed.dev/extensions/tombi) leave them to
-`mise lsp`, so diagnostics, completions and hovers are not doubled. See
-[which files are `mise` files](doc/language-support.md#which-files-are-mise-files)
-to map more files, or to keep one as TOML.
-
-### `mise lsp` on other TOML files is opt-in
-
-`mise lsp` is also registered for TOML, for config files such as
-`mise/config.toml` or `conf.d/*.toml`, but it is off by default: it would
-start in every Rust or Python project. See
-[Configuration](doc/configuration.md#mise-lsp-on-toml-files) to turn it on.
 
 ## Features
 
@@ -80,9 +62,23 @@ start in every Rust or Python project. See
   upgrade them, in `mise.toml`
 - Syntax highlighting and outline for `.tool-versions` files
 
-### [AI agents (MCP)](doc/ai-agents.md)
 
-- How to add the `mise mcp` server to the agent of Zed
+### `mise.toml` is a `mise` file, not a TOML file
+
+`mise.toml`, `.mise.toml`, `mise.local.toml`, `.config/mise/config.toml` and the
+other common config files open as the `mise` language, highlighted as TOML.
+TOML extensions such as [Tombi](https://zed.dev/extensions/tombi) leave them to
+`mise lsp`, so diagnostics, completions and hovers are not doubled. See
+[which files are `mise` files](doc/language-support.md#which-files-are-mise-files)
+to map more files, or to keep one as TOML.
+
+### `mise lsp` on other TOML files is opt-in
+
+`mise lsp` is also registered for TOML, for config files such as
+`mise/config.toml` or `conf.d/*.toml`, but it is off by default: it would
+start in every Rust or Python project. See
+[Configuration](doc/configuration.md#mise-lsp-on-toml-files) to turn it on.
+
 
 ### [Snippets](doc/snippets.md)
 
