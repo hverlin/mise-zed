@@ -69,6 +69,3 @@ off in every file `mise lsp` serves, `mise` files included.
 See [mise.toml language support](language-support.md#which-files-are-mise-files)
 for `file_types`.
 
-## MCP servers
-
-The extension provides none. See [AI agents](ai-agents.md) to add `mise mcp`.
