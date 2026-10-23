@@ -24,9 +24,13 @@ flag "-f --force" help="Skip the checks"
 '''
 run = "./scripts/deploy.sh ${usage_env?}"
 
+[tasks.check-skip-tests]
+description = "Type-check every package, without running the tests"
+run = "npm run check -- --skip-tests"
+
 [tasks.build]
 description = "Build every package"
-depends = ["lint"]
+depends = ["lint", "check-skip-tests"]
 run = '''
 #!/usr/bin/env bash
 set -euo pipefail
