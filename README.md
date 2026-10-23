@@ -53,6 +53,8 @@ The extension comes with defaults that you might want to change. See
 - Go to definition, find references and rename for tasks
 - Formatting, as `mise fmt` does
 
+[![Find references of a task](screenshots/mise-zed-tasks.webp)](doc/language-support.md)
+
 ### [Tasks](doc/tasks-and-tools.md)
 
 - Run buttons on [mise tasks](https://mise.jdx.dev/tasks/) in `mise.toml`

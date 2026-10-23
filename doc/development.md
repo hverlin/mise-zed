@@ -95,6 +95,9 @@ completion, the outline panel and the diagnostics panel. Open a copy of that
 folder outside git, so that the title has no branch and lines no blame, in Zed
 with the extension and a mise that has `mise lsp`, to take it again.
 
+`screenshots/mise-zed-tasks.webp` shows the same file with the references of
+`check-skip-tests`, and the link that go to definition underlines on it.
+
 ## Licenses
 
 The extension is MIT. The queries of `languages/mise`, except `runnables.scm`
