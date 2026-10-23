@@ -90,7 +90,7 @@ $WASI_SDK/bin/clang -fPIC -shared -Os -Wl,--export=tree_sitter_tool_versions \
 ## Screenshot
 
 `screenshots/mise-zed.webp` shows `screenshots/demo/mise.toml`, which `mise lsp`
-reports one problem in, on purpose, with `col` typed under `[settings]` for the
+reports one problem in, on purpose, with `c` typed under `[settings]` for the
 completion, the outline panel and the diagnostics panel. Open a copy of that
 folder outside git, so that the title has no branch and lines no blame, in Zed
 with the extension and a mise that has `mise lsp`, to take it again.
