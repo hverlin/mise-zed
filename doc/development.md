@@ -95,8 +95,9 @@ completion, the outline panel and the diagnostics panel. Open a copy of that
 folder outside git, so that the title has no branch and lines no blame, in Zed
 with the extension and a mise that has `mise lsp`, to take it again.
 
-`screenshots/mise-zed-tasks.webp` shows the same file with the references of
-`check-skip-tests`, underlined as a link to its definition.
+`screenshots/mise-zed-tasks.webp` shows the same file, without its `[settings]`,
+with the references of `check-skip-tests` and its hover in the `depends` of
+`build`, underlined as a link to its definition.
 
 ## Licenses
 
