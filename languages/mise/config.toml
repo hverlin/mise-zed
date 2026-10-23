@@ -24,6 +24,9 @@ path_suffixes = [
     "mise/config.local.toml",
 ]
 line_comments = ["# "]
+# A dash is part of a word, as in a TOML key: `check-skip-tests` is one task name for
+# double-click, word motions, and the link that go to definition underlines
+word_characters = ["-"]
 autoclose_before = ",]}"
 brackets = [
     { start = "{", end = "}", close = true, newline = true },
