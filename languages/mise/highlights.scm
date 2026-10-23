@@ -46,97 +46,67 @@
   "}"
 ] @punctuation.bracket
 
-; mise: the sections of a config, the names of tasks, hooks and tools, `latest`, `lts` and
-; `system` versions, environment variables and strings with a Tera template. These come after
-; the TOML patterns above, so they win.
+; mise: what a header, or one key and its value, tells. These come after the TOML patterns
+; above, so they win. None looks at a header and at the keys under it: Zed keeps at most 64
+; matches open per query, and such a match stays open to the end of the section, so the keys
+; after the first few would lose their color.
 
-; the section of `[tools]`, `[tasks.build]`, `[tasks.build.env]`, `[[watch_files]]`
+; the section of `[tools]`, `[tasks.build]`, `[tasks.build.env]`, `[env._.python]`
 (table
   [(bare_key) @keyword
    (dotted_key . (bare_key) @keyword)
-   (dotted_key (dotted_key . (bare_key) @keyword))]
+   (dotted_key (dotted_key . (bare_key) @keyword))
+   (dotted_key (dotted_key (dotted_key . (bare_key) @keyword)))]
   (#any-of? @keyword
     "alias" "bootstrap" "daemon_groups" "daemon_providers" "daemons" "daemons_settings" "deps"
     "doctor" "dotfile_groups" "dotfiles" "env" "history" "hooks" "monorepo" "oci" "plugins"
     "redactions" "secrets" "settings" "shell_alias" "task_config" "task_templates" "tasks"
     "tool_alias" "tool_config" "tools" "vars" "watch_files" "wrappers"))
 
+; `[[watch_files]]`, `[[env]]`, `[[tools.erlang]]`, `[[hooks.enter]]`
 (table_array_element
-  (bare_key) @keyword
-  (#eq? @keyword "watch_files"))
+  [(bare_key) @keyword
+   (dotted_key . (bare_key) @keyword)]
+  (#any-of? @keyword "env" "hooks" "tools" "watch_files"))
 
-; tasks and templates: `[tasks.build]`, `[tasks.build.env]`, `build = "..."` in `[tasks]`
+; the task, template or hook of `[tasks.build]`, `[tasks.build.env]`, `[hooks.enter]`
 (table
   [(dotted_key . (bare_key) @_section . [(bare_key) (quoted_key)] @function)
-   (dotted_key (dotted_key . (bare_key) @_section . [(bare_key) (quoted_key)] @function))]
-  (#any-of? @_section "tasks" "task_templates"))
-
-(table
-  (bare_key) @_section
-  (pair . [(bare_key) (quoted_key)] @function)
+   (dotted_key (dotted_key . (bare_key) @_section . [(bare_key) (quoted_key)] @function))
+   (dotted_key (dotted_key (dotted_key . (bare_key) @_section . [(bare_key) (quoted_key)] @function)))]
   (#any-of? @_section "tasks" "task_templates" "hooks"))
 
-; tools: `node = "24"` in `[tools]` and `[tasks.build.tools]`, and `[tools.node]`
-(table
-  (bare_key) @_section
-  (pair . [(bare_key) (quoted_key)] @type)
-  (#eq? @_section "tools"))
+(table_array_element
+  (dotted_key . (bare_key) @_section . [(bare_key) (quoted_key)] @function)
+  (#eq? @_section "hooks"))
 
+; the tool of `[tools.node]` and `[[tools.erlang]]`
 (table
   (dotted_key . (bare_key) @_section . [(bare_key) (quoted_key)] @type)
   (#eq? @_section "tools"))
 
-(table
-  (dotted_key (dotted_key . (bare_key) @_section) (bare_key) @_tools .)
-  (pair . [(bare_key) (quoted_key)] @type)
-  (#eq? @_section "tasks")
-  (#eq? @_tools "tools"))
+(table_array_element
+  (dotted_key . (bare_key) @_section . [(bare_key) (quoted_key)] @type)
+  (#eq? @_section "tools"))
 
-; `latest`, `lts` and `system` versions, in `[tools]`, `[tasks.build.tools]` and the `version`
-; of `[tools.node]`
-(table
-  (bare_key) @_section
-  (pair (string (string_content) @constant))
-  (#eq? @_section "tools")
+; `latest`, `lts` and `system` versions: `node = "lts"`, `version = "latest"`,
+; `python = ["3.12", "system"]`, `node = { version = "lts" }`
+([(pair (string (string_content) @constant))
+  (pair (array (string (string_content) @constant)))]
   (#match? @constant "^(latest|lts|lts-[a-z]+|system)$"))
 
-(table
-  (dotted_key (dotted_key . (bare_key) @_section) (bare_key) @_tools .)
-  (pair (string (string_content) @constant))
-  (#eq? @_section "tasks")
-  (#eq? @_tools "tools")
-  (#match? @constant "^(latest|lts|lts-[a-z]+|system)$"))
+; environment variables, by their upper case: `NODE_ENV = "..."`, `env = { NODE_ENV = "..." }`
+((pair . (bare_key) @variable)
+  (#match? @variable "^[A-Z][A-Z0-9_]*$"))
 
-(table
-  (dotted_key . (bare_key) @_section)
-  (pair (bare_key) @_version (string (string_content) @constant))
-  (#eq? @_section "tools")
-  (#eq? @_version "version")
-  (#match? @constant "^(latest|lts|lts-[a-z]+|system)$"))
-
-; environment variables and vars: the keys of `[env]`, `[vars]` and `[tasks.build.env]`, and
-; the `_` of `_.path` and the other env directives
-(table
-  (bare_key) @_section
-  (pair . [(bare_key) (quoted_key)] @variable)
-  (#any-of? @_section "env" "vars"))
-
-(table
-  (dotted_key (dotted_key . (bare_key) @_section) (bare_key) @_env .)
-  (pair . [(bare_key) (quoted_key)] @variable)
-  (#eq? @_section "tasks")
-  (#eq? @_env "env"))
-
-(table
-  (bare_key) @_section
-  (pair (dotted_key . (bare_key) @keyword))
-  (#eq? @_section "env")
+; the `_` of `_.path`, `_.python.venv` and `[env._.python]`
+((dotted_key (bare_key) @keyword)
   (#eq? @keyword "_"))
 
-; a Tera template, `{{ ... }}` or `{% ... %}`, outside the scripts of tasks
+; a Tera template, `{{ ... }}` or `{% ... %}`, except in `run` and `usage`
 (pair
-  [(bare_key) (quoted_key) (dotted_key (_) .)] @_key
+  [(bare_key) @_key (quoted_key) @_key (dotted_key (_) @_key .)]
   [(string (string_content) @string.special)
    (array (string (string_content) @string.special))]
-  (#not-any-of? @_key "run" "usage")
+  (#not-any-of? @_key "run" "run_windows" "usage")
   (#match? @string.special "\\{\\{|\\{%"))

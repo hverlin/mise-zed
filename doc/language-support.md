@@ -44,10 +44,12 @@ To keep a file as TOML instead:
 - **Highlighting, outline and brackets**, from the
   [TOML extension](https://github.com/zed-extensions/toml)'s queries, with
   mise's own on top: sections (`[tools]`, `[tasks.build]`, ...) as keywords,
-  task, template and hook names as functions, tool names as types, `latest`,
-  `lts` and `system` versions as constants, the keys of `[env]` and `[vars]`
-  as variables, and strings with a [Tera template](https://mise.jdx.dev/templates.html)
-  (`{{ ... }}`) apart.
+  the task, template or hook of a header (`[tasks.build]`) as a function and
+  its tool (`[tools.node]`) as a type, `latest`, `lts` and `system` versions as
+  constants, upper case keys (`NODE_ENV`) as variables, the `_` of `_.path` as
+  a keyword, and strings with a
+  [Tera template](https://mise.jdx.dev/templates.html) (`{{ ... }}` or
+  `{% ... %}`) apart, except in `run` and `usage`.
 - **Highlighted task scripts**: see [below](#scripts-of-tasks).
 - **Diagnostics** from `mise lsp`: TOML syntax errors, unknown keys with a
   suggestion, values of the wrong type, and deprecated keys. Unknown
