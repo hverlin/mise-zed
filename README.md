@@ -60,6 +60,8 @@ The extension comes with defaults that you might want to change. See
 - Run buttons on [mise tasks](https://mise.jdx.dev/tasks/) in `mise.toml`
 - `mise run`, `mise install`, `mise doctor` and more in `task: spawn`
 
+[![Run a mise task](screenshots/mise-zed-run-task.webp)](doc/tasks-and-tools.md)
+
 ### [Tools](doc/tasks-and-tools.md#tools)
 
 - Run buttons on [mise tools](https://mise.jdx.dev/dev-tools/) to install or

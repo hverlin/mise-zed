@@ -99,6 +99,9 @@ with the extension and a mise that has `mise lsp`, to take it again.
 with the references of `check-skip-tests` and its hover in the `depends` of
 `build`, underlined as a link to its definition.
 
+`screenshots/mise-zed-run-task.webp` shows a `[tasks.hello]` run from its run
+button, in Zed's terminal.
+
 ## Licenses
 
 The extension is MIT. The queries of `languages/mise`, except `runnables.scm`
