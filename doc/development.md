@@ -90,13 +90,19 @@ $WASI_SDK/bin/clang -fPIC -shared -Os -Wl,--export=tree_sitter_tool_versions \
 ## Screenshot
 
 `screenshots/mise-zed.webp` shows `screenshots/demo/mise.toml`, which `mise lsp`
-reports one problem in, on purpose. Open that folder in Zed with the extension
-and a mise that has `mise lsp`, to take it again.
+reports one problem in, on purpose, with `c` typed under `[settings]` for the
+completion, the outline panel and the diagnostics panel. Open a copy of that
+folder outside git, so that the title has no branch and lines no blame, in Zed
+with the extension and a mise that has `mise lsp`, to take it again.
+
+`screenshots/mise-zed-tasks.webp` shows the same file, without its `[settings]`,
+with the references of `check-skip-tests` and its hover in the `depends` of
+`build`, underlined as a link to its definition.
 
 ## Licenses
 
 The extension is MIT. The queries of `languages/mise`, except `runnables.scm`
-and the mise part of `injections.scm`, come from the
+and the mise parts of `highlights.scm` and `injections.scm`, come from the
 [TOML extension](https://github.com/zed-extensions/toml), under the Apache
 License 2.0 (`LICENSE-APACHE`). `tree-sitter-mise-toml`,
 `tree-sitter-mise-bash` and `tree-sitter-usage-kdl` are forks of
