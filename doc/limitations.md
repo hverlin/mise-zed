@@ -19,7 +19,7 @@ These need the language server to provide them.
 - The other `mise tasks validate` checks, such as alias conflicts, empty
   scripts or usage specs
 
-## Not possible in a Zed extension
+## Not possible yeg in a Zed extension
 
 - The tools, tasks, environment variables and daemons views: Zed extensions
   have no panels.

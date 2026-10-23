@@ -8,7 +8,8 @@
 This Zed extension brings `mise` to your editor: diagnostics, completion and
 quick fixes in `mise.toml`, run buttons for
 [tasks](doc/tasks-and-tools.md) and [tools](doc/tasks-and-tools.md#tools),
-and [snippets](doc/snippets.md).
+and [snippets](doc/snippets.md). It also offers better syntax highlighting than a TOML extension
+alone would provide.
 
 [![mise-zed screenshot](screenshots/mise-zed.webp)](doc/language-support.md)
 
