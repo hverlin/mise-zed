@@ -96,7 +96,7 @@ and a mise that has `mise lsp`, to take it again.
 ## Licenses
 
 The extension is MIT. The queries of `languages/mise`, except `runnables.scm`
-and the mise part of `injections.scm`, come from the
+and the mise parts of `highlights.scm` and `injections.scm`, come from the
 [TOML extension](https://github.com/zed-extensions/toml), under the Apache
 License 2.0 (`LICENSE-APACHE`). `tree-sitter-mise-toml`,
 `tree-sitter-mise-bash` and `tree-sitter-usage-kdl` are forks of

@@ -42,7 +42,12 @@ To keep a file as TOML instead:
 ## What a `mise` file gets
 
 - **Highlighting, outline and brackets**, from the
-  [TOML extension](https://github.com/zed-extensions/toml)'s queries.
+  [TOML extension](https://github.com/zed-extensions/toml)'s queries, with
+  mise's own on top: sections (`[tools]`, `[tasks.build]`, ...) as keywords,
+  task, template and hook names as functions, tool names as types, `latest`,
+  `lts` and `system` versions as constants, the keys of `[env]` and `[vars]`
+  as variables, and strings with a [Tera template](https://mise.jdx.dev/templates.html)
+  (`{{ ... }}`) apart.
 - **Highlighted task scripts**: see [below](#scripts-of-tasks).
 - **Diagnostics** from `mise lsp`: TOML syntax errors, unknown keys with a
   suggestion, values of the wrong type, and deprecated keys. Unknown

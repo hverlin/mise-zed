@@ -38,7 +38,8 @@ The extension comes with defaults that you might want to change. See
 
 ### [mise.toml Language Support](doc/language-support.md)
 
-- Syntax highlighting, outline and brackets for `mise.toml` files
+- Syntax highlighting, outline and brackets for `mise.toml` files, with
+  sections, tasks, tools, environment variables and Tera templates told apart
 - Task scripts (`run`) highlighted as shell, or as Python or JavaScript
   from their shebang, and [usage](https://usage.jdx.dev/) specs
 - Diagnostics: TOML syntax, unknown keys with a suggestion, wrong types,
