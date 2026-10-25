@@ -85,6 +85,13 @@ to map more files, or to keep one as TOML.
 start in every Rust or Python project. See
 [Configuration](doc/configuration.md#mise-lsp-on-toml-files) to turn it on.
 
+### Semantic tokens are off in Zed
+
+With mise 2026.10.19 or later, `mise lsp` also colors what the highlighting
+cannot tell: tool names under `[tools]`, task names in `depends` and templates
+inside `run` scripts. Zed asks for these semantic tokens only once you turn
+them on: see [Configuration](doc/configuration.md#semantic-tokens).
+
 
 ### [Snippets](doc/snippets.md)
 

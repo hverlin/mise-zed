@@ -29,7 +29,7 @@ your settings:
 |---|---|
 | `extension.toml` | the manifest: languages, grammars, language server, snippets, capabilities |
 | `src/lib.rs` | the command of the language server |
-| `languages/mise/` | the `mise` language: `config.toml`, the queries, `runnables.scm` and `tasks.json` for the run buttons |
+| `languages/mise/` | the `mise` language: `config.toml`, the queries, `runnables.scm` and `tasks.json` for the run buttons, `semantic_token_rules.json` |
 | `languages/mise-shell/`, `tree-sitter-mise-bash/` | the `mise Shell` language of the scripts of tasks, without Shell Script's run button, and its grammar, tree-sitter-bash 0.25.1 renamed |
 | `languages/tool-versions/` | the `Tool Versions` language |
 | `tree-sitter-mise-toml/` | the grammar of the `mise` language, a fork of tree-sitter-toml |

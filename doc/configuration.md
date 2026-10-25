@@ -42,6 +42,29 @@ The switches are `formatting`, `hover`, `completion`, `definition`,
 `references` and `rename`, all on by default. Diagnostics and quick fixes
 stay.
 
+## Semantic tokens
+
+With mise 2026.10.19 or later, `mise lsp` sends semantic tokens: tool names
+under `[tools]`, task names in `depends` and in `[tasks]` one-liners, the keys
+of `[env]` and `[vars]`, and the templates inside strings, `run` scripts
+included. Zed asks for them only once you turn them on:
+
+```json
+{
+  "languages": {
+    "mise": { "semantic_tokens": "combined" }
+  }
+}
+```
+
+`"combined"` draws them over the extension's highlighting. `"full"` would
+replace it, and the scripts of tasks would lose their shell, Python or
+JavaScript colors.
+
+The extension colors `[vars]` keys as constants and strikes through deprecated
+keys (`languages/mise/semantic_token_rules.json`). Your own
+`global_lsp_settings.semantic_token_rules` come first.
+
 ## `mise lsp` on TOML files
 
 `mise lsp` serves the `mise` language. It is also registered for TOML, for
