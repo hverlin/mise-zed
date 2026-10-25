@@ -49,7 +49,10 @@ To keep a file as TOML instead:
   constants, upper case keys (`NODE_ENV`) as variables, the `_` of `_.path` as
   a keyword, and strings with a
   [Tera template](https://mise.jdx.dev/templates.html) (`{{ ... }}` or
-  `{% ... %}`) apart, except in `run` and `usage`.
+  `{% ... %}`) apart, except in `run` and `usage`. With
+  [semantic tokens](configuration.md#semantic-tokens) on, `mise lsp` also
+  colors tool names under `[tools]`, task names in `depends` and templates
+  inside `run` scripts.
 - **Highlighted task scripts**: see [below](#scripts-of-tasks).
 - **Diagnostics** from `mise lsp`: TOML syntax errors, unknown keys with a
   suggestion, values of the wrong type, and deprecated keys. Unknown
