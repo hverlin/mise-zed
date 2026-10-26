@@ -22,8 +22,8 @@ alone would provide.
 The extension is not in the Zed extension registry [yet](https://github.com/zed-industries/extensions/pull/8073). To install it from
 source:
 
-1. Install Rust with [rustup](https://rustup.rs/), which Zed uses to build the
-   extension.
+1. Install Rust, which Zed uses to build the extension, with
+   [rustup](https://rustup.rs/) or with mise: `mise use -g rust`.
 2. Clone this repository.
 3. In Zed, run `zed: install dev extension` from the command palette and pick
    the cloned folder.

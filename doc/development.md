@@ -2,7 +2,8 @@
 
 ## Build and try
 
-1. Install Rust with [rustup](https://rustup.rs/), and the WebAssembly target:
+1. Install Rust with [rustup](https://rustup.rs/) or with mise
+   (`mise use -g rust`), and the WebAssembly target:
    `rustup target add wasm32-wasip2`.
 2. Build: `cargo build --release --target wasm32-wasip2`.
 3. In Zed, run `zed: install dev extension` and pick this folder. Zed builds
